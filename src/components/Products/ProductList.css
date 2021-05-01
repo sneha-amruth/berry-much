@@ -1,0 +1,25 @@
+.products-conatiner {
+  position: relative;
+  left: 20%;
+  top: -7rem;
+}
+.product-page-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.sidenav-container {
+  position: relative;
+  top: 9.2rem;
+  left: 2rem;
+}
+.sidenav-set {
+  display: flex;
+  flex-direction: column;
+  /* flex-wrap: wrap; */
+  padding: 1rem;
+}
+.sidenav-set * {
+  align-self: flex-start;
+  padding: 0.4rem;
+}

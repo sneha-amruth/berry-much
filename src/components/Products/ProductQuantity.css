@@ -1,0 +1,20 @@
+.quantity-input-area {
+  display: inline-block;
+  margin-right: 0.6rem;
+}
+.quantity-input-area input {
+  text-align: center;
+  width: 3rem;
+  background: none;
+  border: 1px solid #e8e8e1;
+  margin: 0;
+  height: 2.2rem;
+}
+.btn-quantity {
+  cursor: pointer;
+  text-align: center;
+  padding: 0 1rem;
+  background: none;
+  border: 1px solid #e8e8e1;
+  height: 2.2rem;
+}

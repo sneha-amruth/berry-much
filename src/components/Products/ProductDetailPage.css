@@ -1,0 +1,36 @@
+.detail-container {
+    display: flex;
+    padding: 4rem;
+    margin-left: 14rem;
+}
+.detail-container img {
+    width: 30rem;
+    height: 40rem;
+}
+.details-text {
+    margin-left: 4rem;
+    text-align: left;
+}
+.product-brand-name-pd {
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-size: 0.8em;
+    margin: 0.4rem 0;
+    opacity: 0.65;
+}
+.details-text h1 {
+    margin: 0.4rem 0;
+    font-size: 1.6125em;
+}
+.product-price {
+    margin: 0.4rem 0;
+}
+.text-card-custom {
+    margin-top: 2rem;
+}
+.product-info {
+    margin-top: 2rem;
+}
+.product-features img {
+    max-width: 2rem;
+}

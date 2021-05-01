@@ -1,0 +1,12 @@
+.banner-img {
+  max-height: 20rem;
+  position: relative;
+
+  /* overflow: hidden; */
+}
+.banner-img img {
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  display: block;
+}

@@ -1,0 +1,15 @@
+.btn-icon {
+  position: absolute;
+  z-index: 1;
+  padding: 0.3rem;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+.icon-wishlist {
+  color: white;
+}
+.icon-wishlisted {
+  color: black;
+}

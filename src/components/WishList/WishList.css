@@ -1,0 +1,10 @@
+.btn-outline {
+  border: 1px solid black;
+}
+.btn-custom {
+  cursor: pointer;
+  margin: 0.2rem;
+}
+.wishlist-header {
+  margin: 1.4rem;
+}

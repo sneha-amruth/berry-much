@@ -1,0 +1,50 @@
+.card {
+  border: none;
+}
+.card img {
+  position: relative;
+}
+.card-content {
+  text-align: center;
+  position: relative;
+  bottom: 1.2rem;
+}
+.card-content * {
+  padding: 0.1rem;
+}
+.card-content button {
+  padding: 0.4rem;
+  margin-top: 0.4rem;
+}
+.custom-badge {
+  position: absolute;
+  z-index: 1;
+  background-color: black;
+  color: white;
+  padding: 0.5rem;
+  top: 0;
+  left: 0;
+}
+.product-brand-name {
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 0.8em;
+  margin: 0.4rem;
+  opacity: 0.65;
+  text-align: center;
+}
+.ratings {
+  color: transparent;
+}
+.checked {
+  color: #dfabb7;
+}
+@media only screen and (max-width: 750px) {
+  .card-md {
+    width: 12rem;
+    height: 24rem;
+  }
+  .card img {
+    height: 16rem;
+  }
+}

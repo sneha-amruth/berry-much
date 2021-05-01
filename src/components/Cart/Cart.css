@@ -1,0 +1,14 @@
+.cart-conatiner {
+ text-align: center;
+}
+.cart-conatiner h1 {
+  margin: 1.4rem;
+}
+.info-message {
+  background-color: rgba(225, 171, 183, 0.2);
+  font-size: large;
+  /* margin: 5rem 48rem; */
+  padding: 0.8rem;
+  width: 20rem;
+  margin: 2rem 46rem;
+}
