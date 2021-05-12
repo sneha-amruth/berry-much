@@ -132,7 +132,7 @@ export default function ProductList(props) {
           <div style={{ display: "flex", flexWrap: "wrap" }}>
         {filteredData.map(
          product => (
-            <ProductCard product={product}  handleProductDetail={handleProductDetail}/>
+            <ProductCard key={product._id} product={product}  handleProductDetail={handleProductDetail}/>
           )
         )}
       </div>
