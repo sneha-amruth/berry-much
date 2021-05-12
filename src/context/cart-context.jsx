@@ -208,7 +208,7 @@ export function CartProvider({ children }) {
       try {
         const { success } = await request({
           method: "DELETE",
-          endpoint: `/api/cart/${userId}/${productId}`
+          endpoint: `/api/cart/${userId}/${productId}`,
         });
         if(success) {
           dispatch({
