@@ -1,38 +1,36 @@
 import { useCart } from "../../context/cart-context.jsx";
-import { ACTIONS } from "../../context/cart-context.jsx";
+import { useAuth } from "../../context/auth-context";
+import { ACTIONS } from "../../context/cart-context";
 import "./ProductCard.css";
 import WishListBtn from "../WishList/WishListBtn";
 import ProductQuantity from "./ProductQuantity";
 import { Link } from "react-router-dom";
 
 
-export default function ProductCard(prop){
-const id = prop.value.id;
-const name = prop.value.name;
-const image = prop.value.image;
-const price = prop.value.price;
-const productName = prop.value.productName;
-const brand = prop.value.brand;
-const quantity = prop.value.quantity;
-const inStock = prop.value.inStock;
+export default function ProductCard({product, handleProductDetail}){
+const id = product._id;
+const name = product.name;
+const image = product.image;
+const price = product.price;
+const brand = product.brand;
+const inStock = product.inStock;
 
-const { cartItems, dispatch } = useCart();
+const { cartItems, handleAddToCart } = useCart();
+const { isUserLoggedIn } = useAuth();
 
   const checkIfItemInCart = (id) => {
-    const isPresent = cartItems.some(({ id: itemId }) => {
+    const isPresent = cartItems.some(({ _id: itemId }) => {
       return itemId === id;
     });
     return isPresent;
   };
-  const getCurrentItemQuantity = (id) => {
-    return cartItems.filter((item) => item.id === id)[0].quantity;
-  };
+  
 
 return (
     <div className={"card card-md"} key={id}>
-            <Link to={`/products/${id}`}>   <img src={image} alt={productName} /></Link>
+            <img src={image} alt={name} onClick={ () => handleProductDetail(id)} style={{cursor: "pointer"}}/>
               {!inStock && <span className="custom-badge"> Out of Stock </span>}
-              <WishListBtn id={id} name={name} image={image} price={price} />
+              <WishListBtn product={product} />
               <div className={"card-content"}>
                 <div>{name}</div>
                 <p className="product-brand-name">{brand}</p>
@@ -55,20 +53,18 @@ return (
                 {checkIfItemInCart(id) ? (
                   <ProductQuantity
                     id={id}
-                    quantity={getCurrentItemQuantity(id)}
                   />
                 ) : (
                   ""
                 )}
                 <button
                   onClick={() => {
+                    if(!isUserLoggedIn){
+                        return;
+                    }
                     const res = checkIfItemInCart(id);
-
                     if (!res) {
-                      dispatch({
-                        type: ACTIONS.ADD_TO_CART,
-                        payload: { id, name, image, price }
-                      });
+                      handleAddToCart({product});
                     }
                   }}
                   className="btn btn-primary"

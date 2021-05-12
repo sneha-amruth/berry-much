@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 import ProductCard from "./ProductCard";
-import { data } from "../../Database.js";
+import { useNavigate } from "react-router-dom";
 import "./ProductList.css";
 
 const ACTIONS = {
@@ -11,7 +11,15 @@ const ACTIONS = {
   SORT: "sort"
 };
 
-export default function ProductList() {
+export default function ProductList(props) {
+  const productsData = props.value;
+
+  const navigate = useNavigate();
+  const handleProductDetail = (id) => {
+    navigate(`/products/${id}`);
+  };
+
+
   const reducer = (state, action) => {
     switch (action.type) {
       case ACTIONS.SORT:
@@ -57,7 +65,9 @@ export default function ProductList() {
       )
       .filter(({ inStock }) => (showInventoryAll ? true : inStock));
   };
-  const sortedData = getSortedData(data, sortBy);
+  
+  const sortedData = getSortedData(productsData, sortBy);
+  
   const filteredData = getFilteredData(sortedData, {
     showInventoryAll,
     showFastDeliveryOnly
@@ -119,13 +129,10 @@ export default function ProductList() {
           </div>
         </div>
         <div className="products-conatiner">
-          {/* <ProductCard value={filteredData} /> */}
           <div style={{ display: "flex", flexWrap: "wrap" }}>
         {filteredData.map(
          product => (
-           
-            <ProductCard value={product}/>
-
+            <ProductCard product={product}  handleProductDetail={handleProductDetail}/>
           )
         )}
       </div>

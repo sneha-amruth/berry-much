@@ -12,6 +12,7 @@ import Login from "./components/Login/Login";
 import Account from "./components/Account/Account";
 import PrivateRoute from "./components/Login/PrivateRoute";
 import SignUp from "./components/Login/SignUp";
+import FetchProductsData from "./components/Products/FetchProductsData";
 
 export default function App() {
   const { cartItems, wishListItems } = useCart();
@@ -88,13 +89,13 @@ export default function App() {
      
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/products" element={<ProductList />} />
+        <Route path="/products" element={<FetchProductsData />} /> 
         <Route path="/products/:productId" element={<ProductDetailPage />} />
-        <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<SignUp/>} />
         <Route path="*" element={<NotFound />} />
         <PrivateRoute path="/account" element={<Account/>} />
+        <PrivateRoute path="/cart" element={<Cart />} />
         <PrivateRoute path="/wishlist" element={<WishList/>} />
       </Routes>
     </div>

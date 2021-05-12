@@ -3,25 +3,23 @@ import { ACTIONS } from "../../context/cart-context.jsx";
 import "./ProductQuantity.css";
 
 export default function ProductQuantity(props) {
-  const itemId = props.id;
+  const productId = props.id;
 
-  const { cartItems, dispatch } = useCart();
+  const { cartItems, dispatch, handleQuantityChange,handleRemoveFromCart } = useCart();
 
-  const quantity = cartItems.filter((item) => item.id === itemId)[0].quantity;
+  const quantity = cartItems.filter((item) => item.product._id === productId)[0].quantity;
 
   const calculateTotalCartValue = () => {
     dispatch({
       type: ACTIONS.TOTAL_CART_VALUE
     });
   };
+
   return (
     <div className="quantity-input-area">
       <button
         onClick={() =>
-          dispatch({
-            type: ACTIONS.INCREASE_QUANTITY,
-            payload: { itemId, quantity }
-          })
+          handleQuantityChange({productId, quantity, type: ACTIONS.INCREASE_QUANTITY})
         }
         className="btn-quantity"
       >
@@ -35,14 +33,12 @@ export default function ProductQuantity(props) {
       ></input>
       <button
         onClick={() =>
-          dispatch({
-            type: ACTIONS.DECREASE_QUANTITY,
-            payload: { itemId, quantity }
-          })
+          quantity === 1 ? handleRemoveFromCart({productId}) :
+          handleQuantityChange({productId, quantity, type: ACTIONS.DECREASE_QUANTITY})
         }
         className="btn-quantity"
       >
-        {quantity === 0 ? <i className="fas fa-trash trash-icon"></i> : "-"}
+        {quantity === 1 ? <i className="fas fa-trash trash-icon"></i> : "-"}
       </button>
     </div>
   );

@@ -5,7 +5,7 @@ export default function TotalCartValue() {
   const { cartItems } = useCart();
   const getTotalCartValue = () => {
     return cartItems.reduce(
-      (prev, item) => prev + item.quantity * item.price,
+      (prev, item) => prev + item.quantity * item.product.price,
       0
     );
   };

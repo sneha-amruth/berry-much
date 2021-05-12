@@ -1,26 +1,27 @@
 import { useCart } from "../../context/cart-context.jsx";
-import { ACTIONS } from "../../context/cart-context.jsx";
 import "./WishList.css";
 
 export default function WishList() {
-  const { wishListItems, dispatch } = useCart();
+  const {  wishListItems, handleAddToCart, handleRemoveFromWishlist } = useCart();
+ 
   return (
     <>
     <div className="wishlist-header"><h1>Your Wishlist</h1></div>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {wishListItems &&
-          wishListItems.map(({ id, name, image, price, quantity }) => (
-            <div key={id} className={"card card-md"}>
-              <img src={image} width="50%" height="auto" alt="" />
+          wishListItems.map(({product}) => (
+            <div key={product._id} className={"card card-md"}>
+              <img src={product.image} width="50%" height="auto" alt="" />
               <div className={"card-content"}>
-                <div>{name}</div>
-                <p>Rs. {price}</p>
+                <div>{product.name}</div>
+                <p>Rs. {product.price}</p>
                 <button
                   onClick={() => {
-                    dispatch({
-                      type: ACTIONS.ADD_TO_CART_FROM_WISHLIST,
-                      payload: { id, name, image, price }
-                    });
+                    handleAddToCart({product})
+                    // dispatch({
+                    //   type: ACTIONS.ADD_TO_CART_FROM_WISHLIST,
+                    //   payload: { id, name, image, price }
+                    // });
                   }}
                   className="btn btn-primary btn-custom"
                 >
@@ -28,10 +29,11 @@ export default function WishList() {
                 </button>
                 <button
                   onClick={() => {
-                    dispatch({
-                      type: ACTIONS.REMOVE_FROM_WISHLIST,
-                      payload: { id, name, image, price }
-                    });
+                    handleRemoveFromWishlist({product})
+                    // dispatch({
+                    //   type: ACTIONS.REMOVE_FROM_WISHLIST,
+                    //   payload: { id, name, image, price }
+                    // });
                   }}
                   className="btn btn-outline btn-custom"
                 >

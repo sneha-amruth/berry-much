@@ -1,17 +1,24 @@
 import { useCart } from "../../context/cart-context.jsx";
 import ProductQuantity from "../Products/ProductQuantity";
 import TotalCartValue from "./TotalCartValue";
+import Loader from "../Loader/Loader";
+import { useLoader } from "../../context/loader-context";
 import "./Cart.css";
+
 
 export default function Cart() {
   const { cartItems } = useCart();
+  const { isLoading } = useLoader();
+ 
   return (
     <>
+    {isLoading && <Loader/>}
+    {!isLoading && cartItems &&
       <div className="cart-conatiner">
       <h1>Cart</h1>
         <div style={{ display: "flex", flexWrap: "wrap" }}>
           {cartItems &&
-            cartItems.map(({ id, name, image, price, quantity }) => (
+            cartItems.map(({ product: {_id: id, name, image, price}, quantity }) => (
               <div key={id} className={"card card-md"}>
                 <img src={image} width="50%" height="auto" alt="" />
                 <div className={"card-content"}>
@@ -26,6 +33,7 @@ export default function Cart() {
           <TotalCartValue />
         </div>
       </div>
+    }
     </>
   );
 }
