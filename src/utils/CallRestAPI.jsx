@@ -2,8 +2,6 @@ import axios from "axios";
 import dotenv from 'dotenv';
 dotenv.config();
 
-console.log("REACT_APP_API_URL,"+process.env.REACT_APP_API_URL);
-
 export const api = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
     headers: { "content-type": "application/json" }
