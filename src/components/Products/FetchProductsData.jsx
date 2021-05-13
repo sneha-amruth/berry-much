@@ -4,7 +4,7 @@ import ProductList from "./ProductList";
 import Loader from "../Loader/Loader";
 import {useLoader} from "../../context/loader-context";
 
-export default function ProductsDemo() {
+export default function FetchProductsData() {
     const {request} = restAPICalls();
     const [productsData, setproductsData] = useState();
     const {isLoading, setLoading} = useLoader();
