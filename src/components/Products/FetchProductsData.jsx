@@ -21,7 +21,7 @@ export default function FetchProductsData() {
                 setProductsData(data);
                 setLoading(false);
             } else {
-              console.error("something went worng."+success+"-"+data);
+              console.error("something went worng.");
             }
           } catch (err) {
             console.error(err);
