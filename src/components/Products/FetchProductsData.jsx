@@ -6,7 +6,7 @@ import {useLoader} from "../../context/loader-context";
 
 export default function FetchProductsData() {
     const {request} = restAPICalls();
-    const [productsData, setproductsData] = useState();
+    const [productsData, setProductsData] = useState();
     const {isLoading, setLoading} = useLoader();
 
     useEffect(() => {
@@ -18,10 +18,10 @@ export default function FetchProductsData() {
               endpoint: "/api/products",
             });
             if (success) {
-                setproductsData(data);
+                setProductsData(data);
                 setLoading(false);
             } else {
-              console.error("something went worng.");
+              console.error("something went worng."+success+"-"+data);
             }
           } catch (err) {
             console.error(err);
