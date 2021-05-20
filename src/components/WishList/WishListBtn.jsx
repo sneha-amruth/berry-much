@@ -26,7 +26,7 @@ export default function WishListBtn({product}) {
         {!checkIfItemInWishlist(id) ? (
           <i className="far fa-heart icon-wishlist"></i>
         ) : (
-          <i className="far fa-heart icon-wishlisted"></i>
+          <i className="fas fa-heart icon-wishlisted"></i>
         )}
       </button>
     </>
