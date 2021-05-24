@@ -5,7 +5,7 @@ import "./ProductQuantity.css";
 export default function ProductQuantity(props) {
   const productId = props.id;
 
-  const { cartItems, dispatch, handleQuantityChange,handleRemoveFromCart } = useCart();
+  const { cartItems, dispatch, handleQuantityChange, handleRemoveFromCart } = useCart();
 
   const quantity = cartItems.filter((item) => item.product._id === productId)[0].quantity;
 

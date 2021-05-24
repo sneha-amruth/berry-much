@@ -8,6 +8,7 @@ export const AuthContext = createContext();
 export function AuthProvider({children}) {
     const {setLoading} = useLoader();
     const [isUserLoggedIn, setLogin] = useState(false);
+    const [userId, setUserId] = useState(null);
     const [loginError,  setLoginError] = useState(null);
     const {state} = useLocation();
     const navigate = useNavigate();
@@ -32,13 +33,15 @@ export function AuthProvider({children}) {
           });
          
         if (success) {
+            localStorage.setItem("user", JSON.stringify({ userId: data._id, email: data.email, name: data.firstName, isUserLoggedIn: true }));
+            setUserId(JSON.parse(localStorage?.getItem("user"))?.userId);
             setLoading(false);
             setLogin(true);
-            localStorage.setItem("user", JSON.stringify({ userId: data._id, email: data.email, name: data.firstName, isUserLoggedIn: true }));
             navigate(state?.from? state.from : "/");
         } else {
             setLoading(false);
             setLogin(false);
+            setUserId(null);
             setLoginError("Incorrect email or password.");
         }
         
@@ -53,7 +56,7 @@ export function AuthProvider({children}) {
         navigate("/");
      }
     return (
-        <AuthContext.Provider value={{isUserLoggedIn, loginUserWithCredentials, logoutUser,loginError,setLoginError}}>
+        <AuthContext.Provider value={{isUserLoggedIn, userId, loginUserWithCredentials, logoutUser,loginError,setLoginError}}>
             {children}
         </AuthContext.Provider>
     );

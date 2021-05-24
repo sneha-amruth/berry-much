@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { useReducer, useContext } from "react";
 import { useAuth } from "./auth-context";
 import { restAPICalls } from "../utils/CallRestAPI";
-import {useLoader} from "./loader-context";
+import { useLoader } from "./loader-context";
+import { useSnackbar, SNACKBAR_ACTIONS } from "./snackbar-context";
 
 export const CartContext = React.createContext();
 
@@ -22,12 +23,12 @@ export const ACTIONS = {
 export function CartProvider({ children }) {
   const { request } = restAPICalls();
   const { setLoading} = useLoader();
-  const { isUserLoggedIn } = useAuth();
-  const userId = JSON.parse(localStorage?.getItem("user"))?.userId;
+  const { isUserLoggedIn, userId } = useAuth();
+  const { snackbarDispatch } = useSnackbar();
+
   const reducer = (state, action) => {
     const { cartItems, wishListItems } = state;
     switch (action.type) {
-
       case ACTIONS.SET_CART: 
         return {
           ...state,
@@ -62,6 +63,7 @@ export function CartProvider({ children }) {
           cartItems: [
             ...state.cartItems,
             {
+              _id: action.payload._id,
               product: {
               ...action.payload
               },
@@ -73,9 +75,7 @@ export function CartProvider({ children }) {
         case ACTIONS.REMOVE_FROM_CART:
         return {
           ...state,
-          cartItems: cartItems.filter(
-            (item) => item.product._id !== action.payload.productId
-          )
+          cartItems: cartItems.filter((item) => item.product._id !== action.payload)
         };
 
         case ACTIONS.SET_WISHLIST: 
@@ -90,9 +90,9 @@ export function CartProvider({ children }) {
           wishListItems: [
             ...state.wishListItems,
             {
-              product: {
-              ...action.payload
-              }
+              _id: action.payload._id,
+              product: 
+              {...action.payload}
             }
           ]
         };
@@ -101,7 +101,7 @@ export function CartProvider({ children }) {
         return {
           ...state,
           wishListItems: wishListItems.filter(
-            (item) => item.product._id !== action.payload.productId
+            (item) => item.product._id !== action.payload
           )
         };
 
@@ -139,15 +139,13 @@ export function CartProvider({ children }) {
   };
 
   const setCart = ({cartItems}) => {
-    dispatch(
-      { 
+    dispatch({ 
         type: ACTIONS.SET_CART, payload: { cartItems }
       });
   }
 
   const setWishList = ({wishListItems}) => {
-    dispatch(
-      { 
+    dispatch({ 
         type: ACTIONS.SET_WISHLIST, payload: { wishListItems }
       });
   }
@@ -167,7 +165,8 @@ export function CartProvider({ children }) {
         if(success) {
           dispatch({
             type: ACTIONS.ADD_TO_CART, payload: product
-          })
+          });
+          snackbarDispatch({ type: "SUCCESS", payload: "Added To Cart" });
         }
        } catch(err){
         console.error(err);
@@ -213,7 +212,10 @@ export function CartProvider({ children }) {
         if(success) {
           dispatch({
             type: ACTIONS.REMOVE_FROM_CART, payload: productId
-          })
+          });
+          snackbarDispatch({
+            type: SNACKBAR_ACTIONS.ERROR, payload: "Removed from cart"
+          });
         }
        } catch(err){
         console.error(err);
@@ -231,7 +233,10 @@ export function CartProvider({ children }) {
         if(success) {
           dispatch({
             type: ACTIONS.ADD_TO_WISHLIST, payload: product
-          })
+          });
+          snackbarDispatch({
+            type: SNACKBAR_ACTIONS.INFO, payload: "Added to Wishlist"
+          });
         }
        } catch(err){
         console.error(err);
@@ -249,7 +254,10 @@ export function CartProvider({ children }) {
         if(success) {
           dispatch({
             type: ACTIONS.REMOVE_FROM_WISHLIST, payload: product._id
-          })
+          });
+          snackbarDispatch({
+            type: SNACKBAR_ACTIONS.INFO, payload: "Removed from Wishlist"
+          });
         }
        } catch(err){
         console.error(err);
@@ -258,7 +266,9 @@ export function CartProvider({ children }) {
   }
 
   const fetchData = () => {
+    console.log("in fetch data--"+userId);
     (async () => {
+      console.log("in fetch data--"+userId);
       setLoading(true);
       try {
         const { data, success } = await request({
@@ -294,6 +304,7 @@ export function CartProvider({ children }) {
   useEffect(() => {
     if(isUserLoggedIn){
       fetchData();
+      console.log("going to set the cart ...")
     } else{
       setCart({cartItems: []});
       setWishList({ wishListItems: []});
@@ -307,7 +318,7 @@ export function CartProvider({ children }) {
       dispatch, 
       handleAddToCart,
       handleQuantityChange,
-      handleRemoveFromCart,
+      handleRemoveFromCart,     
       handleAddToWishlist,
       handleRemoveFromWishlist,
       setWishList,
