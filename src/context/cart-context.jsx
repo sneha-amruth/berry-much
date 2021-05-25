@@ -266,9 +266,7 @@ export function CartProvider({ children }) {
   }
 
   const fetchData = () => {
-    console.log("in fetch data--"+userId);
     (async () => {
-      console.log("in fetch data--"+userId);
       setLoading(true);
       try {
         const { data, success } = await request({
@@ -304,7 +302,6 @@ export function CartProvider({ children }) {
   useEffect(() => {
     if(isUserLoggedIn){
       fetchData();
-      console.log("going to set the cart ...")
     } else{
       setCart({cartItems: []});
       setWishList({ wishListItems: []});

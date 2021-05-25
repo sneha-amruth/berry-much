@@ -17,7 +17,10 @@ export function AuthProvider({children}) {
 
     useEffect(() => {
         const userLoginStatus = JSON.parse(localStorage?.getItem("user"));
-        userLoginStatus?.isUserLoggedIn && setLogin(true);
+        if(userLoginStatus?.isUserLoggedIn){
+            setLogin(true);
+            setUserId(JSON.parse(localStorage?.getItem("user"))?.userId);
+        }
     }, []);
     
     const loginUserWithCredentials = async (email, password) => {

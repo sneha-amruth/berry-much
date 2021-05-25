@@ -2,7 +2,6 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import WishList from "./components/WishList/WishList";
-import ProductList from "./components/Products/ProductList";
 import Cart from "./components/Cart/Cart";
 import { Link } from "react-router-dom";
 import { useCart } from "./context/cart-context";
@@ -13,9 +12,13 @@ import Account from "./components/Account/Account";
 import PrivateRoute from "./components/Login/PrivateRoute";
 import SignUp from "./components/Login/SignUp";
 import FetchProductsData from "./components/Products/FetchProductsData";
+import Snackbar from "./components/Snackbar/Snackbar";
+import { useSnackbar } from "./context/snackbar-context";
+
 
 export default function App() {
   const { cartItems, wishListItems } = useCart();
+  const { snackbarStatus } = useSnackbar();
  
   return (
     <div className="App">
@@ -98,6 +101,7 @@ export default function App() {
         <PrivateRoute path="/cart" element={<Cart />} />
         <PrivateRoute path="/wishlist" element={<WishList/>} />
       </Routes>
+      {snackbarStatus.display === true && <Snackbar/>}
     </div>
   );
 }
