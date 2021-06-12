@@ -10,6 +10,7 @@ export function AuthProvider({children}) {
     const [isUserLoggedIn, setLogin] = useState(false);
     const [userId, setUserId] = useState(null);
     const [loginError,  setLoginError] = useState(null);
+    const [registerError,  setRegisterError] = useState(null);
     const {state} = useLocation();
     const navigate = useNavigate();
     const {request} = restAPICalls();
@@ -52,6 +53,38 @@ export function AuthProvider({children}) {
         console.error(err);
       }
      }
+
+     const registerUser = async(firstName, lastName, email, password) => {
+        try {
+            setLoading(true);
+            const  { data, token, success } = await request({
+                method: "POST",
+                endpoint: "/api/user/register",
+                body: {
+                  firstName,
+                  lastName,
+                  email,
+                  password,
+                },
+              });
+            if(success) {
+                localStorage?.setItem("user", JSON.stringify({ userId: data.userId, email: data.email, name: data.username, token: token, isUserLoggedIn: true }));
+                setUserId(JSON.parse(localStorage?.getItem("user"))?.userId);
+                setToken(JSON.parse(localStorage?.getItem("user"))?.token);
+                setLoading(false);
+                setLogin(true);
+                navigate(state?.from? state.from : "/");
+            } else {
+                setLoading(false);
+                setLogin(false);
+                setUserId(null);
+                setToken(null);
+                setRegisterError("Incorrect email or password.");
+            }
+        } catch(err) {
+            console.error(err);
+        }
+    }
   
      const logoutUser = () => {
         setLogin(false);
@@ -59,7 +92,7 @@ export function AuthProvider({children}) {
         navigate("/");
      }
     return (
-        <AuthContext.Provider value={{isUserLoggedIn, userId, loginUserWithCredentials, logoutUser,loginError,setLoginError}}>
+        <AuthContext.Provider value={{isUserLoggedIn, userId, loginUserWithCredentials, logoutUser, loginError, setLoginError, registerUser, registerError,  setRegisterError}}>
             {children}
         </AuthContext.Provider>
     );

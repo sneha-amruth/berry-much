@@ -22,8 +22,8 @@
 .btn {
     cursor: pointer;
 }
-.btn-create {
-    background-color: transparent;
+.login-form .btn-create {
+    color: black;
 }
 .error-message {
     color: #d02e2e;

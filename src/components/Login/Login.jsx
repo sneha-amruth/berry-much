@@ -3,7 +3,7 @@ import { useAuth } from "../../context/auth-context";
 import { useState } from "react";
 import Loader from "../Loader/Loader";
 import { useLoader } from "../../context/loader-context";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 export default function Login() {
     const {isUserLoggedIn, loginUserWithCredentials, loginError,setLoginError} = useAuth();
@@ -50,9 +50,7 @@ export default function Login() {
             <label>Password </label>
             <input type="password" name="password" onChange={handleChange} required className="input-box"/>
             <button type="button" onClick={loginHandler} className="btn btn-primary btn-large">{isUserLoggedIn ? "logout" : "LOG IN"}</button>
-            <p>email: dummy@gmail.com <br/> password: dummypass1</p>
-            <p>sign up functionality (in progress)</p>
-            {/* <Link to="/register"><button type="button" className="btn btn-large btn-create">Create account</button></Link>  */}
+            <Link to="/register"><button type="button" className="btn btn-large btn-create">Create Account</button></Link> 
             </div>
 }
         </>
