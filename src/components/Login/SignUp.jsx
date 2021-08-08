@@ -1,9 +1,11 @@
 import "./SignUp.css";
 import { useState } from "react";
 import { useAuth } from "../../context/auth-context";
+import { useLoader } from "../../context/loader-context";
+import Loader from "../Loader/Loader";
 
 export default function SignUp(){
-    const { loginError, setLoginError, registerUser } = useAuth();
+    const { registerError, setRegisterError, registerUser } = useAuth();
 
     const [accountDetails, setAccountDetails] = useState({
         firstName: "",
@@ -11,16 +13,17 @@ export default function SignUp(){
         email: "",
         password: ""
     })
+    const {isLoading} = useLoader();
 
     const handleCreate = () => {
         const regexExp = /^\S+@\S+$/;
         if(accountDetails.firstName === "" || accountDetails.lastName === "" || accountDetails.email === "" || accountDetails.password === "" ){
-            setLoginError("Please enter all the details");
+            setRegisterError("Please enter all the details");
             return;
         }
 
         if(!regexExp.test(accountDetails.email)){
-            setLoginError("Incorrect email");
+            setRegisterError("Incorrect email");
             return;
         }
         
@@ -28,7 +31,7 @@ export default function SignUp(){
     }
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setLoginError();
+        setRegisterError();
         setAccountDetails((prevVal) => {
             if(name === "firstName")
                 return {
@@ -62,14 +65,16 @@ export default function SignUp(){
         });
     }
     return(
+    <>
     <div className="signup-form">
     <h1>Create Account</h1>
-    <div className="error-message">{loginError}</div>
+    <div className="error-message">{registerError}</div>
     <input type="text" name="firstName" onChange={handleChange}  required className="input-box" placeholder="First Name"/>
     <input type="text" name="lastName" onChange={handleChange} required className="input-box" placeholder="Last Name"/>
     <input type="text" name="email" onChange={handleChange}  required className="input-box" placeholder="Email"/>
     <input type="password" name="password" onChange={handleChange} required className="input-box" placeholder="Password"/>       
     <button type="button" onClick={handleCreate} className="btn btn-large">Create</button>
     </div>
+    </>
     )
 }

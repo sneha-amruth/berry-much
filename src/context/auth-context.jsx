@@ -6,28 +6,29 @@ import {useLoader} from "./loader-context";
 export const AuthContext = createContext();
 
 export function AuthProvider({children}) {
-    const {setLoading} = useLoader();
+    const { setLoading } = useLoader();
     const [isUserLoggedIn, setLogin] = useState(false);
     const [userId, setUserId] = useState(null);
+    const [token, setToken] = useState(null);
     const [loginError,  setLoginError] = useState(null);
     const [registerError,  setRegisterError] = useState(null);
-    const {state} = useLocation();
+    const { state } = useLocation();
     const navigate = useNavigate();
-    const {request} = restAPICalls();
-   
+    const { request } = restAPICalls();
 
     useEffect(() => {
         const userLoginStatus = JSON.parse(localStorage?.getItem("user"));
         if(userLoginStatus?.isUserLoggedIn){
             setLogin(true);
             setUserId(JSON.parse(localStorage?.getItem("user"))?.userId);
+            setToken(JSON.parse(localStorage?.getItem("user"))?.token);
         }
     }, []);
     
     const loginUserWithCredentials = async (email, password) => {
      try {
         setLoading(true);
-        const  { data, success } = await request({
+        const  { data, token, success } = await request({
             method: "POST",
             endpoint: "/api/user/login",
             body: {
@@ -35,10 +36,10 @@ export function AuthProvider({children}) {
               password,
             },
           });
-         
         if (success) {
-            localStorage.setItem("user", JSON.stringify({ userId: data._id, email: data.email, name: data.firstName, isUserLoggedIn: true }));
+            localStorage?.setItem("user", JSON.stringify({ userId: data.userId, email: data.email, name: data.username, token: token, isUserLoggedIn: true }));
             setUserId(JSON.parse(localStorage?.getItem("user"))?.userId);
+            setToken(JSON.parse(localStorage?.getItem("user"))?.token);
             setLoading(false);
             setLogin(true);
             navigate(state?.from? state.from : "/");
@@ -46,6 +47,7 @@ export function AuthProvider({children}) {
             setLoading(false);
             setLogin(false);
             setUserId(null);
+            setToken(null);
             setLoginError("Incorrect email or password.");
         }
         
@@ -57,7 +59,7 @@ export function AuthProvider({children}) {
      const registerUser = async(firstName, lastName, email, password) => {
         try {
             setLoading(true);
-            const  { data, token, success } = await request({
+            const { data, token, success } = await request({
                 method: "POST",
                 endpoint: "/api/user/register",
                 body: {
@@ -68,7 +70,7 @@ export function AuthProvider({children}) {
                 },
               });
             if(success) {
-                localStorage?.setItem("user", JSON.stringify({ userId: data.userId, email: data.email, name: data.username, token: token, isUserLoggedIn: true }));
+                localStorage?.setItem("user", JSON.stringify({ userId: data._id, email: data.email, name: data.firstName, token: token, isUserLoggedIn: true }));
                 setUserId(JSON.parse(localStorage?.getItem("user"))?.userId);
                 setToken(JSON.parse(localStorage?.getItem("user"))?.token);
                 setLoading(false);
@@ -92,7 +94,7 @@ export function AuthProvider({children}) {
         navigate("/");
      }
     return (
-        <AuthContext.Provider value={{isUserLoggedIn, userId, loginUserWithCredentials, logoutUser, loginError, setLoginError, registerUser, registerError,  setRegisterError}}>
+        <AuthContext.Provider value={{ token, isUserLoggedIn, userId, loginUserWithCredentials, logoutUser, loginError, setLoginError, registerUser, registerError,  setRegisterError}}>
             {children}
         </AuthContext.Provider>
     );
