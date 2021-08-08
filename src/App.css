@@ -59,6 +59,23 @@
 .dropdown-content a:hover {
   background-color: white;
 }
-/* @media only screen and (max-width: 750px) {
-  
-} */
+
+@media only screen and (max-width: 480px) {
+  .top-nav-container { 
+    padding: 0.1rem;
+  }
+  .brand-name {
+    margin-left: 0;
+  }
+  .icon {
+    font-size: 1.5rem;
+    padding: 0.2em;
+    right: 0;
+    top: 0.4rem;
+  }
+  .quantity-icon {
+    width: 1.4rem;
+    height: 1.4rem;
+    right: 1.4rem;
+  }
+}

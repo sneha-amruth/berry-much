@@ -26,3 +26,9 @@
    left: 45rem;
     width: 22rem;
 }
+
+@media only screen and (max-width: 480px) {
+    .signup-form .input-box {
+        left: 2rem;
+    }
+}

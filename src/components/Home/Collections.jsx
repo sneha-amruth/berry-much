@@ -37,7 +37,7 @@ export default function Collections() {
           />
           <Link to="/products">
             {" "}
-            <span className={styles.badge}>Combination Sky</span>{" "}
+            <span className={styles.badge}>Combination Skin</span>{" "}
           </Link>
         </div>
         <div className={styles.card}>

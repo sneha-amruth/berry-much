@@ -90,7 +90,7 @@ export default function ProductList(props) {
                   })
                 }
                 checked={sortBy && sortBy === ACTIONS.PRICE_HIGH_TO_LOW}
-              />
+              />{" "}
               Price - High to Low
             </label>
             <label>

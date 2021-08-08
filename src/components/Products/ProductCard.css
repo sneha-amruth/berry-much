@@ -41,10 +41,11 @@
 }
 @media only screen and (max-width: 750px) {
   .card-md {
-    width: 12rem;
-    height: 24rem;
+    width: 10rem;
+    height: 26rem;
   }
   .card img {
     height: 16rem;
   }
+  
 }

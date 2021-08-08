@@ -28,3 +28,23 @@
   background: white;
   color: black;
 }
+
+@media only screen and (max-width: 480px) {
+  .collectionsContainer {
+   justify-content: left;
+  }
+  .card {
+    position: static;
+    width: 10rem;
+    height: 14rem;
+  }
+  .card img {
+    height: 15rem;
+  }
+  .badge {
+    position: relative;
+    padding: 0.4rem;
+    left: 10%;
+    top: -50%;
+  }
+}
