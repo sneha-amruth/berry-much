@@ -6,7 +6,7 @@ import { useLoader } from "../../context/loader-context";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 
 export default function Login() {
-    const {isUserLoggedIn, loginUserWithCredentials, registerError,setRegisterError} = useAuth();
+    const {isUserLoggedIn, loginUserWithCredentials, loginError, setLoginError} = useAuth();
     const [credentials, setCredentials] = useState({
         email: "",
         password: ""
@@ -22,10 +22,10 @@ export default function Login() {
         loginUserWithCredentials(credentials.email, credentials.password);
     }
     function handleGuestCredentials() {
-        setCredentials({email: "testuser@gmail.com", password: "testuser@12"});
+        loginUserWithCredentials("testuser@gmail.com", "testuser@12");
     }
     function handleChange(event){
-        setRegisterError();
+        setLoginError();
         const {name, value} = event.target;
        
             setCredentials((prevVal) => {
@@ -47,13 +47,13 @@ export default function Login() {
         <> {isLoading && <Loader />}
            {!isLoading && <div className="login-form">
             <h1>Login</h1>
-            <div className="error-message">{registerError}</div>
+            <div className="error-message">{loginError}</div>
             <label>Email </label>
             <input type="text" name="email" value={credentials.email} onChange={handleChange} required className="input-box"/>
             <label>Password </label>
             <input type="password" name="password" value={credentials.password} autoComplete="on" onChange={handleChange} required className="input-box"/>
             <button type="button" onClick={loginHandler} className="btn btn-primary btn-large">LOG IN</button>
-            <button type="button" onClick={handleGuestCredentials} className="btn btn-primary btn-large">Use Guest Credentials</button>
+            <button type="button" onClick={handleGuestCredentials} className="btn btn-primary btn-large">Login as Guest</button>
             <Link to="/register" className="create-link">Don't have an account? Sign Up</Link>
           </div>
 }
