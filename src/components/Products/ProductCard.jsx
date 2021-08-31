@@ -1,10 +1,10 @@
 import { useCart } from "../../context/cart-context.jsx";
 import { useAuth } from "../../context/auth-context";
-import { ACTIONS } from "../../context/cart-context";
 import "./ProductCard.css";
 import WishListBtn from "../WishList/WishListBtn";
 import ProductQuantity from "./ProductQuantity";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 export default function ProductCard({product, handleProductDetail}){
@@ -17,6 +17,7 @@ const inStock = product.inStock;
 
 const { cartItems, handleAddToCart } = useCart();
 const { isUserLoggedIn } = useAuth();
+const navigate = useNavigate();
 
   const checkIfItemInCart = (id) => {
     const isPresent = cartItems.some(({ _id: itemId }) => {
@@ -60,6 +61,7 @@ return (
                 <button
                   onClick={() => {
                     if(!isUserLoggedIn){
+                      navigate("/login");
                         return;
                     }
                     const res = checkIfItemInCart(id);

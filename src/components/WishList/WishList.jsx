@@ -18,10 +18,6 @@ export default function WishList() {
                 <button
                   onClick={() => {
                     handleAddToCart({product})
-                    // dispatch({
-                    //   type: ACTIONS.ADD_TO_CART_FROM_WISHLIST,
-                    //   payload: { id, name, image, price }
-                    // });
                   }}
                   className="btn btn-primary btn-custom"
                 >
@@ -30,10 +26,6 @@ export default function WishList() {
                 <button
                   onClick={() => {
                     handleRemoveFromWishlist({product})
-                    // dispatch({
-                    //   type: ACTIONS.REMOVE_FROM_WISHLIST,
-                    //   payload: { id, name, image, price }
-                    // });
                   }}
                   className="btn btn-outline btn-custom"
                 >

@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./ProductDetailPage.css";
 import { useCart } from "../../context/cart-context.jsx";
 import { ACTIONS } from "../../context/cart-context.jsx";
@@ -8,22 +8,26 @@ import { Link } from "react-router-dom";
 import Loader from "../Loader/Loader";
 import {useLoader} from "../../context/loader-context";
 import {restAPICalls} from "../../utils/CallRestAPI";
+import { useAuth } from "../../context/auth-context";
 
 //import ProductDetailImg from "../../assets/product-details/vegan.png"
 
 export default function ProductDetail() {
     const {request} = restAPICalls();
-
+    const navigate = useNavigate();
     const {productId} = useParams();
     const { cartItems, dispatch } = useCart();
     const [productDetail, setProductDetail] = useState();
     const {isLoading, setLoading} = useLoader();
+    const { isUserLoggedIn } = useAuth();
+
   const checkIfItemInCart = (id) => {
     const isPresent = cartItems.some(({ id: itemId }) => {
       return itemId === id;
     });
     return isPresent;
   };
+  
   const getCurrentItemQuantity = (id) => {
     return cartItems.filter((item) => item.id === id)[0].quantity;
   };
@@ -87,6 +91,10 @@ export default function ProductDetail() {
                 )}
                 <button
                   onClick={() => {
+                    if(!isUserLoggedIn){
+                      navigate("/login");
+                      return;
+                    }
                     const res = checkIfItemInCart(productDetail._id);
 
                     if (!res) {
