@@ -1,8 +1,7 @@
 .products-conatiner {
-  position: relative;
-  top: -7rem;
   flex: 1;
   min-width: 0;
+  padding-top: 2rem;
 }
 .product-page-container {
   display: flex;
@@ -10,9 +9,8 @@
   justify-content: flex-start;
 }
 .sidenav-container {
-  position: relative;
-  top: 9.2rem;
-  left: 2rem;
+  padding-top: 2rem;
+  padding-left: 2rem;
 }
 .sidenav-set {
   display: flex;
@@ -26,17 +24,18 @@
 }
 
 @media only screen and (max-width: 480px) {
+  .product-page-container {
+    flex-direction: column;
+  }
   .products-conatiner {
-    left: 0;
-    top: 1rem;
+    padding-top: 1rem;
+    flex: initial;
   }
   .sidenav-container{
     display: flex;
     flex-wrap: wrap;
-  }
-  .sidenav-container {
-    top: 0;
-    left: 0;
+    padding-top: 0;
+    padding-left: 0;
     margin: 1.2rem;
   }
   .sidenav-set {
