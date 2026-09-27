@@ -1,6 +1,6 @@
 import "./Login.css";
 import { useAuth } from "../../context/auth-context";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Loader from "../Loader/Loader";
 import { useLoader } from "../../context/loader-context";
 import { useNavigate, useLocation, Link } from "react-router-dom";
@@ -15,9 +15,11 @@ export default function Login() {
     const {state} = useLocation();
     const navigate = useNavigate();
 
-    if(isUserLoggedIn){
-        navigate(state?.from? state.from : "/");
-    }
+    useEffect(() => {
+        if(isUserLoggedIn){
+            navigate(state?.from? state.from : "/");
+        }
+    }, [isUserLoggedIn]);
      function loginHandler() {  
         loginUserWithCredentials(credentials.email, credentials.password);
     }

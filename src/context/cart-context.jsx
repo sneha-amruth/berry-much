@@ -55,7 +55,8 @@ export function CartProvider({ children }) {
                 : item
             )
           };
-        } 
+        }
+        return state;
 
       case ACTIONS.ADD_TO_CART:
         return {
@@ -188,13 +189,12 @@ export function CartProvider({ children }) {
         if(success){
           dispatch({
             type: type,
-            payload: { productId, quantity } 
+            payload: { productId, quantity }
           })
         } else {
-          dispatch({
-            type: type,
-            payload: { productId, quantity } 
-          })
+          snackbarDispatch({
+            type: SNACKBAR_ACTIONS.ERROR, payload: "Could not update quantity"
+          });
         }
        } catch(err) {
          console.error(err);

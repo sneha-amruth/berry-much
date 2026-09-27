@@ -2,7 +2,6 @@ import {useState, useEffect} from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./ProductDetailPage.css";
 import { useCart } from "../../context/cart-context.jsx";
-import { ACTIONS } from "../../context/cart-context.jsx";
 import ProductQuantity from "./ProductQuantity";
 import { Link } from "react-router-dom";
 import Loader from "../Loader/Loader";
@@ -16,20 +15,20 @@ export default function ProductDetail() {
     const {request} = restAPICalls();
     const navigate = useNavigate();
     const {productId} = useParams();
-    const { cartItems, dispatch } = useCart();
+    const { cartItems, handleAddToCart } = useCart();
     const [productDetail, setProductDetail] = useState();
     const {isLoading, setLoading} = useLoader();
     const { isUserLoggedIn } = useAuth();
 
   const checkIfItemInCart = (id) => {
-    const isPresent = cartItems.some(({ id: itemId }) => {
-      return itemId === id;
+    const isPresent = cartItems.some(({ product }) => {
+      return product._id === id;
     });
     return isPresent;
   };
-  
+
   const getCurrentItemQuantity = (id) => {
-    return cartItems.filter((item) => item.id === id)[0].quantity;
+    return cartItems.filter((item) => item.product._id === id)[0].quantity;
   };
   
     useEffect(() => {
@@ -98,10 +97,7 @@ export default function ProductDetail() {
                     const res = checkIfItemInCart(productDetail._id);
 
                     if (!res) {
-                      dispatch({
-                        type: ACTIONS.ADD_TO_CART,
-                        payload: { id: productDetail._id, name: productDetail.name, image: productDetail.image, price: productDetail.price }
-                      });
+                      handleAddToCart({ product: productDetail });
                     }
                   }}
                   className="btn btn-primary"

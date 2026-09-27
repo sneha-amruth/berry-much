@@ -5,15 +5,9 @@ import "./ProductQuantity.css";
 export default function ProductQuantity(props) {
   const productId = props.id;
 
-  const { cartItems, dispatch, handleQuantityChange, handleRemoveFromCart } = useCart();
+  const { cartItems, handleQuantityChange, handleRemoveFromCart } = useCart();
 
   const quantity = cartItems.filter((item) => item.product._id === productId)[0].quantity;
-
-  const calculateTotalCartValue = () => {
-    dispatch({
-      type: ACTIONS.TOTAL_CART_VALUE
-    });
-  };
 
   return (
     <div className="quantity-input-area">
@@ -29,7 +23,7 @@ export default function ProductQuantity(props) {
       <input
         type="number"
         value={quantity}
-        onChange={calculateTotalCartValue}
+        readOnly
       ></input>
       <button
         onClick={() =>

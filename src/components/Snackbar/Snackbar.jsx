@@ -15,7 +15,7 @@ export default function Snackbar() {
     }, [])
     return (
         <div className="snackbar-container">
-        <div className={snackbarStatus["alertType"].toLowerCase(), "snackbar"}>
+        <div className={`${snackbarStatus["alertType"].toLowerCase()} snackbar`}>
             <i className="fas fa-check"></i>
             <span> {snackbarStatus["msg"]} </span>
         </div>

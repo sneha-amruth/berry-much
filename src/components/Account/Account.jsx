@@ -7,8 +7,9 @@ export default function Account(){
     const [userName, setUserName] = useState("");
 
     useEffect(() => {
-        setUserName(JSON.parse(localStorage?.getItem("user")).name);
-    })
+        const user = JSON.parse(localStorage?.getItem("user"));
+        setUserName(user?.name ?? "");
+    }, [])
     
     return (
         <>

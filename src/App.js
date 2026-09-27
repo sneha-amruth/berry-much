@@ -97,9 +97,9 @@ export default function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<SignUp/>} />
         <Route path="*" element={<NotFound />} />
-        <PrivateRoute path="/account" element={<Account/>} />
-        <PrivateRoute path="/cart" element={<Cart />} />
-        <PrivateRoute path="/wishlist" element={<WishList/>} />
+        <Route path="/account" element={<PrivateRoute><Account/></PrivateRoute>} />
+        <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
+        <Route path="/wishlist" element={<PrivateRoute><WishList/></PrivateRoute>} />
       </Routes>
       {snackbarStatus.display === true && <Snackbar/>}
     </div>
