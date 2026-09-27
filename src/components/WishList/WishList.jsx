@@ -1,4 +1,5 @@
 import { useCart } from "../../context/cart-context.jsx";
+import { handleImageError } from "../../utils/placeholderImage";
 import "./WishList.css";
 
 export default function WishList() {
@@ -11,7 +12,7 @@ export default function WishList() {
         {wishListItems &&
           wishListItems.map(({product}) => (
             <div key={product._id} className={"card card-md"}>
-              <img src={product.image} width="50%" height="auto" alt="" />
+              <img src={product.image} width="50%" height="auto" alt="" onError={handleImageError} />
               <div className={"card-content"}>
                 <div>{product.name}</div>
                 <p>Rs. {product.price}</p>

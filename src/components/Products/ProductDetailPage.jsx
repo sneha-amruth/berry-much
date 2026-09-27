@@ -9,6 +9,7 @@ import {useLoader} from "../../context/loader-context";
 import {restAPICalls} from "../../utils/CallRestAPI";
 import { useAuth } from "../../context/auth-context";
 import { data as mockProducts } from "../../Database";
+import { handleImageError } from "../../utils/placeholderImage";
 
 //import ProductDetailImg from "../../assets/product-details/vegan.png"
 
@@ -62,7 +63,7 @@ export default function ProductDetail() {
          {!isLoading && productDetail && 
         <div className="detail-container">
          <div>
-          <img src={productDetail.image} alt={productDetail.name} />
+          <img src={productDetail.image} alt={productDetail.name} onError={handleImageError} />
          </div>
          <div className="details-text">
          <p className="product-brand-name-pd">{productDetail.brand}</p>

@@ -3,6 +3,7 @@ import ProductQuantity from "../Products/ProductQuantity";
 import TotalCartValue from "./TotalCartValue";
 import Loader from "../Loader/Loader";
 import { useLoader } from "../../context/loader-context";
+import { handleImageError } from "../../utils/placeholderImage";
 import "./Cart.css";
 
 
@@ -20,7 +21,7 @@ export default function Cart() {
           {cartItems &&
             cartItems.map(({ product: {_id: id, name, image, price}, quantity }) => (
               <div key={id} className={"card card-md"}>
-                <img src={image} width="50%" height="auto" alt="" />
+                <img src={image} width="50%" height="auto" alt="" onError={handleImageError} />
                 <div className={"card-content"}>
                   <div>{name}</div>
                   <p>Rs. {price}</p>

@@ -1,7 +1,8 @@
 .products-conatiner {
   position: relative;
-  left: 20%;
   top: -7rem;
+  flex: 1;
+  min-width: 0;
 }
 .product-page-container {
   display: flex;

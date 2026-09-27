@@ -2,24 +2,12 @@ import faker from "faker";
 
 faker.seed(123);
 const productImages = [
-  "https://cdn.shopify.com/s/files/1/0253/5155/3114/products/Klairs_MD_Mask_2_1800x1800.png?v=1582085179",
-  "https://cdn.shopify.com/s/files/1/0253/5155/3114/products/KlairsTonerMini_1800x1800.jpg?v=1606465841",
   "https://cdn.shopify.com/s/files/1/0253/5155/3114/products/SNPPrepToneUpCreamApplication_1800x1800.jpg?v=1607950279",
   "https://cdn.shopify.com/s/files/1/0253/5155/3114/products/Salicylicacidcleanserwithfoam_1800x1800.jpg?v=1596490101",
-  "https://cdn.shopify.com/s/files/1/0253/5155/3114/products/HoneyOvernightMask_1800x1800.jpg?v=1596490125",
-  "https://cdn.shopify.com/s/files/1/0253/5155/3114/products/Snailessencemucinbottle_1800x1800.jpg?v=1596489593",
   "https://cdn.shopify.com/s/files/1/0253/5155/3114/products/Klairs_Scrub_2_1800x1800.png?v=1580145050",
-  "https://cdn.shopify.com/s/files/1/0253/5155/3114/products/Klairs_Vit_C_2_1800x1800.png?v=1580144923",
   "https://cdn.shopify.com/s/files/1/0253/5155/3114/products/Klairs_Midnight_Calming_Cream_2_1800x1800.png?v=1580145140",
-  "https://cdn.shopify.com/s/files/1/0253/5155/3114/products/Alloverlotion_9c718a5d-b1ce-4542-ac9e-ca474009dfcd_1800x1800.jpg?v=1603070660",
-  "https://cdn.shopify.com/s/files/1/0253/5155/3114/products/GalactomycesEssenceBottle_1800x1800.jpg?v=1596489871",
   "https://cdn.shopify.com/s/files/1/0253/5155/3114/products/Dr.OracleStay21A-theraCreamTexture_1800x1800.jpg?v=1607949942",
-  "https://cdn.shopify.com/s/files/1/0253/5155/3114/products/NacificFreshHerbOriginCreamTexture_1800x1800.jpg?v=1608472344",
-  "https://cdn.shopify.com/s/files/1/0253/5155/3114/products/MP_Cream_2_1800x1800.png?v=1580147904",
-  "https://cdn.shopify.com/s/files/1/0253/5155/3114/products/ACSpotCreamCoverImage_1800x1800.jpg?v=1596487541",
-  "https://cdn.shopify.com/s/files/1/0253/5155/3114/products/Dr.OracleStay21A-theraEmulsionTexture_1800x1800.jpg?v=1607949851",
-  "https://cdn.shopify.com/s/files/1/0253/5155/3114/products/twoinoneporelesstextureandbottle_1800x1800.jpg?v=1596490109",
-  "https://cdn.shopify.com/s/files/1/0253/5155/3114/products/HoneyOvernightMask_1800x1800.jpg?v=1596490125"
+  "https://cdn.shopify.com/s/files/1/0253/5155/3114/products/Dr.OracleStay21A-theraEmulsionTexture_1800x1800.jpg?v=1607949851"
 ];
 const productNames = [
   "COSRX Honey Overnight Mask",

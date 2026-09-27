@@ -5,6 +5,7 @@ import WishListBtn from "../WishList/WishListBtn";
 import ProductQuantity from "./ProductQuantity";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { handleImageError } from "../../utils/placeholderImage";
 
 
 export default function ProductCard({product, handleProductDetail}){
@@ -29,7 +30,7 @@ const navigate = useNavigate();
 
 return (
     <div className={"card card-md"} key={id}>
-            <img src={image} alt={name} onClick={ () => handleProductDetail(id)} style={{cursor: "pointer"}}/>
+            <img src={image} alt={name} onClick={ () => handleProductDetail(id)} onError={handleImageError} style={{cursor: "pointer"}}/>
               {!inStock && <span className="custom-badge"> Out of Stock </span>}
               <WishListBtn product={product} />
               <div className={"card-content"}>
