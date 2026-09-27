@@ -47,28 +47,32 @@ const productDetails = [
   "If your skin is acne prone or easily irritated by pollution, temperature and other internal and external factors, the Klairs Midnight Blue Calming Sheet Mask is built for you.",
   "A sleeping mask enriched with more than 68% Rice Extract and Niacinamide, brightens skin tone and deeply moisturises the skin.",
 ]
-export const data = [...Array(50)].map((item) => ({
-  id: faker.random.uuid(),
-  name: faker.random.arrayElement(productNames),
-  brand: faker.random.arrayElement(brandNames),
-  image: faker.random.arrayElement(productImages),
-  price: faker.commerce.price(),
-  material: faker.commerce.productMaterial(),
-  inStock: faker.random.boolean(),
-  fastDelivery: faker.random.boolean(),
-  ratings: faker.random.arrayElement([1, 2, 3, 4, 5]),
-  productDetails: faker.random.arrayElement(productDetails),
-  offer: faker.random.arrayElement([
-    "Save 50",
-    "70% bonanza",
-    "Republic Day Sale"
-  ]),
-  level: faker.random.arrayElement([
-    "beginner",
-    "amateur",
-    "intermediate",
-    "advanced",
-    "professional"
-  ]),
-  color: faker.commerce.color()
-}));
+export const data = [...Array(50)].map((item) => {
+  const productDetail = faker.random.arrayElement(productDetails);
+  return {
+    _id: faker.random.uuid(),
+    name: faker.random.arrayElement(productNames),
+    brand: faker.random.arrayElement(brandNames),
+    image: faker.random.arrayElement(productImages),
+    price: faker.commerce.price(),
+    material: faker.commerce.productMaterial(),
+    inStock: faker.random.boolean(),
+    fastDelivery: faker.random.boolean(),
+    ratings: faker.random.arrayElement([1, 2, 3, 4, 5]),
+    productDetails: productDetail,
+    description: productDetail,
+    offer: faker.random.arrayElement([
+      "Save 50",
+      "70% bonanza",
+      "Republic Day Sale"
+    ]),
+    level: faker.random.arrayElement([
+      "beginner",
+      "amateur",
+      "intermediate",
+      "advanced",
+      "professional"
+    ]),
+    color: faker.commerce.color()
+  };
+});

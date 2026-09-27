@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import ProductList from "./ProductList";
 import Loader from "../Loader/Loader";
 import {useLoader} from "../../context/loader-context";
+import { data as mockProducts } from "../../Database";
 
 export default function FetchProductsData() {
     const {request} = restAPICalls();
@@ -10,7 +11,7 @@ export default function FetchProductsData() {
     const {isLoading, setLoading} = useLoader();
 
     useEffect(() => {
-        (async () => { 
+        (async () => {
           setLoading(true);
           try {
             const { data, success } = await request({
@@ -19,17 +20,18 @@ export default function FetchProductsData() {
             });
             if (success) {
                 setProductsData(data);
-                setLoading(false);
             } else {
-              console.error("something went worng.");
+              console.error("No backend available, falling back to local product data.");
+              setProductsData(mockProducts);
             }
           } catch (err) {
             console.error(err);
+            setProductsData(mockProducts);
+          } finally {
             setLoading(false);
           }
-         
         })();
-       
+
       }, []);
 
     return (

@@ -8,6 +8,7 @@ import Loader from "../Loader/Loader";
 import {useLoader} from "../../context/loader-context";
 import {restAPICalls} from "../../utils/CallRestAPI";
 import { useAuth } from "../../context/auth-context";
+import { data as mockProducts } from "../../Database";
 
 //import ProductDetailImg from "../../assets/product-details/vegan.png"
 
@@ -41,15 +42,16 @@ export default function ProductDetail() {
           });
           if (success) {
              setProductDetail(data);
-             setLoading(false);
           } else {
-            console.error("something went worng.");
+            console.error("No backend available, falling back to local product data.");
+            setProductDetail(mockProducts.find((product) => product._id === productId));
           }
         } catch (err) {
           console.error(err);
+          setProductDetail(mockProducts.find((product) => product._id === productId));
+        } finally {
           setLoading(false);
         }
-       
       })();
      
     }, []);
